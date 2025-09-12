@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>Products</h2>
+    <input type="text"
+     [(ngModel)]="searchTerm"
+     (input)="filterProducts()"
+     id="searchBox" 
+     placeholder="search">
+    <span>500</span>
+    <input type="range" 
+    min="500"
+     max="1000" 
+     [(ngModel)]="selectedPrice"
+     (input)="filterProducts()"
+     id="rangeBox">
+    <span>1000</span>
+
+    <div class="products">
+        <div class="product-card" *ngFor="let product of filteredProducts">
+            <img [src]="product.image" alt="">
+            <p> {{product.name}} </p>
+            <p>{{product.price}} </p>
+        </div>
+    </div>
+</div>

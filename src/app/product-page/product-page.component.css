@@ -1,0 +1,33 @@
+.container{
+    padding-left: 15px;
+    margin-top: 10px;
+}
+#searchBox{
+    width: 70%;
+    height: 29px;
+    margin-right: 10px;
+    padding-left: 5px;
+}
+#rangeBox{
+position: relative;
+top: 3px;
+width: 200px;
+}
+.products {
+    margin-top: 35px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
+    gap: 50px;
+    row-gap: 50px;
+}
+.product-card{
+    text-align: center;
+    border: 1px solid black ;
+    background: #fff;
+}
+.product-card img{
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
