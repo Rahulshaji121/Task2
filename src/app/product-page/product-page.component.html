@@ -1,14 +1,17 @@
 <div class="container">
     <h2>Products</h2>
+
     <input type="text"
      [(ngModel)]="searchTerm"
      (input)="filterProducts()"
      id="searchBox" 
      placeholder="search">
-    <span>500</span>
+
+    <span>100</span>
     <input type="range" 
-    min="500"
+    min="100"
      max="1000" 
+     [step]="50"
      [(ngModel)]="selectedPrice"
      (input)="filterProducts()"
      id="rangeBox">
