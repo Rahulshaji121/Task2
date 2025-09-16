@@ -15,7 +15,9 @@
   <div class="products">
     <div class="product-card" *ngFor="let product of filteredProducts">
       <img [src]="product.image" alt="">
-      <p> {{product.name}} </p>
+      <p>
+         <a [routerLink]="['/product', product.id]">{{ product.name }}</a>
+      </p>
       <p>{{product.price}} </p>
       <button (click)="addToCart(product)" [ngClass]="product.isInStock ? 'in-stock' : 'out-of-stock'">
         Add to Cart

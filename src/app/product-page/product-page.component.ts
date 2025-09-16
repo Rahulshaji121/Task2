@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../product.service';
 import { CartService } from '../cart.service';
+import { RouterLink } from '@angular/router';
 
 
 interface Product {
@@ -15,7 +16,7 @@ interface Product {
 }
 @Component({
   selector: 'app-product-page',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule,RouterLink],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css'
 })
