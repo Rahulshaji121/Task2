@@ -1,27 +1,43 @@
 <div class="container">
-    <h2>Products</h2>
+  <h2>Products</h2>
 
-    <input type="text"
-     [(ngModel)]="searchTerm"
-     (input)="filterProducts()"
-     id="searchBox" 
-     placeholder="search">
+  <input type="text" [(ngModel)]="searchTerm" (input)="filterProducts()" id="searchBox" placeholder="search">
+  <select [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
+    <option value="">All </option>
+    <option *ngFor="let category of categories" [value]="category">{{category}} </option>
 
-    <span>100</span>
-    <input type="range" 
-    min="100"
-     max="1000" 
-     [step]="50"
-     [(ngModel)]="selectedPrice"
-     (input)="filterProducts()"
-     id="rangeBox">
-    <span>1000</span>
+  </select>
+  <span>100</span>
+  <input type="range" min="100" max="1000" [step]="50" [(ngModel)]="selectedPrice" (input)="filterProducts()"
+    id="rangeBox">
+  <span>1000</span>
 
-    <div class="products">
-        <div class="product-card" *ngFor="let product of filteredProducts">
-            <img [src]="product.image" alt="">
-            <p> {{product.name}} </p>
-            <p>{{product.price}} </p>
-        </div>
+  <div class="products">
+    <div class="product-card" *ngFor="let product of filteredProducts">
+      <img [src]="product.image" alt="">
+      <p> {{product.name}} </p>
+      <p>{{product.price}} </p>
+      <button (click)="addToCart(product)" [ngClass]="product.isInStock ? 'in-stock' : 'out-of-stock'">
+        Add to Cart
+      </button>
     </div>
+  </div>
+
+  <div class="pagination-controls">
+    <!-- Page Size Dropdown -->
+    <label>Items per page:</label>
+    <select>
+      <option>
+        1
+      </option>
+    </select>
+
+    <!-- Page Number Buttons -->
+    <div class="page-buttons">
+      <button>Prev...</button>
+      <button>2
+      </button>
+      <button>Next</button>
+    </div>
+  </div>
 </div>

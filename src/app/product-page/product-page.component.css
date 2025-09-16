@@ -3,7 +3,7 @@
     margin-top: 10px;
 }
 #searchBox{
-    width: 70%;
+    width: 60%;
     height: 29px;
     margin-right: 10px;
     padding-left: 5px;
@@ -25,9 +25,58 @@ width: 200px;
     border: 1px solid black ;
     background: #fff;
 }
+.in-stock {
+  background-color: green;
+  color: white;
+}
+
+.out-of-stock {
+  background-color: red;
+  color: white;
+}
+
+.product-card button{
+    text-align: center;
+    margin-bottom: 4px;
+}
 .product-card img{
     max-width: 100%;
     height: auto;
     object-fit: contain;
     margin-bottom: 10px;
 }
+select{
+    width: 130px;
+    height: 24px;
+    margin-right: 5px;
+}
+.pagination-controls{
+    margin-top: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.pagination-controls select{
+    height: 20px;
+    margin-right: 20px;
+}
+ label{
+    font-size: 20px;
+    font-weight: 400;
+    margin-right: 10px;
+}
+.page-buttons{
+    display: flex;
+    gap: 5px;
+}
+.page-buttons button{
+    border: none;
+    color: blue;
+    background: #fff;
+     font-size: 20px;
+    font-weight: 400;
+}
+.page-buttons button:hover{
+    color: #050505;
+} 

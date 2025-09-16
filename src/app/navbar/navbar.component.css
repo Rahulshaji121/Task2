@@ -24,3 +24,11 @@ a{
     gap: 40px;
     display: flex;
 }
+.links span{
+    width: 20px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+    background: red;
+}
