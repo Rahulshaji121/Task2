@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 export interface Product {
   id: number;
@@ -12,7 +13,7 @@ export interface Product {
 }
 @Component({
   selector: 'app-product-detail',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })
@@ -20,8 +21,7 @@ export class ProductDetailComponent implements OnInit {
   product!:Product;
   relatedProducts:Product[]=[];
 
-  showDescription=false;
-  showSpecification=false;
+
 
   constructor(
     private route:ActivatedRoute,
@@ -30,9 +30,17 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
     const id=+this.route.snapshot.paramMap.get('id')!;
 
-    this.productService.getProductById(id).subscribe(p=>this.product=p);
+    this.productService.getProductById(id).subscribe(p=>
+      {
+        this.product=p;
+        console.log(this.product);
+        
+      });
      // Fetch related products
-    this.productService.getRelatedProducts(id).subscribe(r => this.relatedProducts = r);
+    this.productService.getRelatedProducts(id).subscribe(r => {this.relatedProducts = r
+      console.log(this.relatedProducts);
+      
+    });
   }
  
 

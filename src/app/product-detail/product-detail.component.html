@@ -1,1 +1,21 @@
-<p>product-detail works!</p>
+<div class="container">
+    <div class="img">
+        <img [src]="product.image" alt="" srcset="">
+    </div>
+    <div class="details">
+        <p>Description</p>
+        <h4>{{product.name}} </h4>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae quam recusandae eum in perferendis minus amet
+             ex repellat ipsam labore sint porro culpa necessitatibus alias assumenda aut, sequi quis odio?</p>
+             <p>price <span>${{product.price}} </span></p> 
+             <button>Place ORder</button>
+    </div>
+</div>
+
+<div class="related-Products" >
+     <div class="card" *ngFor="let products of relatedProducts">
+        <img [src]="products.image" alt="">
+        <p>{{products.name}} </p>
+        <button >Click</button>
+     </div>
+</div>
