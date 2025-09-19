@@ -5,7 +5,6 @@ import { ProductService } from '../product.service';
 import { CartService } from '../cart.service';
 import { RouterLink } from '@angular/router';
 
-
 interface Product {
   id: number;
   name: string;
@@ -14,6 +13,7 @@ interface Product {
   category: string;
   isInStock: boolean;
 }
+
 @Component({
   selector: 'app-product-page',
   imports: [FormsModule, CommonModule, RouterLink],
@@ -36,51 +36,59 @@ export class ProductPageComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private cartService: CartService,
-
+    private cartService: CartService
   ) { }
+
   ngOnInit(): void {
-    this.productService.getProducts().subscribe(data => {
-      this.products = data;
-
-      this.filteredProducts = [...this.products];
-
-
-      this.categories = [...new Set(this.products.map(p => p.category))]
-      this.updatePagination();
-
-    })
+    this.loadCategories(); // fetch categories first
+    this.loadProducts();   // fetch products
   }
-  onCategoryChange() {
-    this.selectedCategory;
-    this.filterProducts();
-    console.log(this.selectedCategory);
 
-  }
-  addToCart(product: Product) {
-    this.cartService.addToCart(product);
- 
-
-  }
-  filterProducts(): void {
-    const search = this.searchTerm.toLowerCase();
-    this.filteredProducts = this.products.filter(product => {
-      const matchesSearch = product.name.toLowerCase().includes(search);
-      const checkCategory = this.selectedCategory ? product.category === this.selectedCategory : true;
-      const withinPrice = product.price <= this.selectedPrice;
-      return matchesSearch && withinPrice && checkCategory;
+  // ✅ Load categories from backend
+  loadCategories(): void {
+    this.productService.getCategories().subscribe(data => {
+      this.categories = data;
     });
-    this.currentPage=1;
-    this.updatePagination();
   }
- updatePagination() {
-  this.totalPages = Math.ceil(this.filteredProducts.length / this.itemPerPage);
-  const start = (this.currentPage - 1) * this.itemPerPage;
-  const end = start + this.itemPerPage;
-  this.paginatedProducts = this.filteredProducts.slice(start, end);
-  console.log(this.paginatedProducts);
-  
-}
+
+  // ✅ Fetch products with filters
+  loadProducts(): void {
+    this.productService
+      .getFilteredProducts(this.searchTerm, this.selectedCategory, 0, this.selectedPrice)
+      .subscribe(data => {
+        this.products = data;
+        this.filteredProducts = [...this.products];
+        this.currentPage = 1;
+        this.updatePagination();
+      });
+  }
+
+  // ✅ Filter handlers
+  onCategoryChange(): void {
+    this.loadProducts();
+  }
+
+  onSearchChange(): void {
+    this.loadProducts();
+  }
+
+  onPriceChange(): void {
+    this.loadProducts();
+  }
+
+  // ✅ Add product to cart
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product);
+  }
+
+  // ✅ Pagination logic
+  updatePagination(): void {
+    this.totalPages = Math.ceil(this.filteredProducts.length / this.itemPerPage);
+    const start = (this.currentPage - 1) * this.itemPerPage;
+    const end = start + this.itemPerPage;
+    this.paginatedProducts = this.filteredProducts.slice(start, end);
+  }
+
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
@@ -88,10 +96,9 @@ export class ProductPageComponent implements OnInit {
     }
   }
 
-   changePageSize(event: any): void {
+  changePageSize(event: any): void {
     this.itemPerPage = +event.target.value;
     this.currentPage = 1;
     this.updatePagination();
   }
 }
-

@@ -6,7 +6,7 @@ import { routes } from './app/app.routes'; // your routes file
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideHttpClient(),     // ✅ provides HttpClient globally
+    provideHttpClient(),     
     provideRouter(routes)    // ✅ provides Router for navigation
   ]
 })

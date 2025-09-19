@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
@@ -31,4 +31,25 @@ export class ProductService {
     getRelatedProducts(id: number): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}/${id}/related`);
   }
+  getCategories(): Observable<string[]> {
+  return this.http.get<string[]>(`${this.apiUrl}/categories`);
 }
+
+  getFilteredProducts(search?: string, category?: string, minPrice?: number, maxPrice?: number): Observable<Product[]> {
+    let params = new HttpParams();
+
+    if (search) {
+      params = params.set("search", search);
+    }
+    if (category) {
+      params = params.set("category", category);
+    }
+    if (minPrice !== undefined) {
+      params = params.set("minPrice", minPrice.toString());
+    }
+    if (maxPrice !== undefined) {
+      params = params.set("maxPrice", maxPrice.toString());
+    }
+
+    return this.http.get<Product[]>(this.apiUrl, { params });
+  }}

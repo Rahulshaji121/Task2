@@ -2,10 +2,10 @@
   <h2>Products</h2>
 
   <!-- Search -->
-  <input type="text" [(ngModel)]="searchTerm" (input)="filterProducts()" id="searchBox" placeholder="Search">
+  <input type="text" [(ngModel)]="searchTerm" (input)="onSearchChange()" id="searchBox" placeholder="Search">
 
   <!-- Category -->
-  <select [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
+  <select [(ngModel)]="selectedCategory" (change)="onSearchChange()">
     <option value="">All</option>
     <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
   </select>
@@ -13,7 +13,7 @@
   <!-- Price Range -->
   <span>100</span>
   <input type="range" min="100" max="1000" [step]="50"
-    [(ngModel)]="selectedPrice" (input)="filterProducts()" id="rangeBox">
+    [(ngModel)]="selectedPrice" (input)="onPriceChange()" id="rangeBox">
   <span>1000</span>
 
   <!-- Products Grid -->
